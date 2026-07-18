@@ -18,7 +18,7 @@ merge 1:1 SampleID using "D:\CNHS\data_pre\CHNS18_fungi_species.dta"
 keep if _merge==3
 drop if MMSE_score==.
 
-foreach v of varlist   s378 s379 s165-s180 MMSE_score insomnia_score HbA1C tg chol LDL_CH HDL_CH glu{
+foreach v of varlist   s378 s379 s165-s180 MMSE_score{
            egen s_`v' = std(`v')
 		   drop `v'
 		   rename s_`v' `v'
@@ -30,7 +30,7 @@ tempname coef
 tempfile res
 postfile `coef' str200(outcome exposure ) float(n rr lul uul p)  using "`res'", replace
 
-foreach outcome of varlist MMSE_score insomnia_score HbA1C tg chol LDL_CH HDL_CH glu{ 
+foreach outcome of varlist MMSE_score { 
 foreach var of varlist s378 s379 s165-s180 { 
     mixed `outcome' `var' age i.sex BMI   ||code_id:, covariance(unstructured) 
 	test `var'
