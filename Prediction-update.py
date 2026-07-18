@@ -140,7 +140,6 @@ n_permutations = 100
 kf = KFold(n_splits=n_splits, shuffle=True, random_state=2026) # 
 
 def run_fast_evaluation(X_input, y_input):
-    """单次 10 折交叉验证"""
     r_list = []
     # 直接在 X 上循环，不使用 Repeat
     for train_index, test_index in kf.split(X_input):
